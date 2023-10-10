@@ -1,7 +1,8 @@
 mod board;
 mod user;
+mod tests;
 use crate::board::*;
-use crate::user::*;
+// use crate::user::*;
 
 fn main() {
     // let bd = 

@@ -14,7 +14,7 @@ pub fn get_move() -> usize{
             Some('s') | Some('S') => return 2,
             Some('d') | Some('D') => return 3,
             Some('x') | Some('X') => return 4,
-            Some(c) => return 5,
+            Some(_) => return 5,
             None => return 5,
         }
     }

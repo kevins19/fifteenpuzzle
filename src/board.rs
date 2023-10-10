@@ -50,14 +50,40 @@ impl Board{
             grid : ngrid
         }
     }
+    pub fn set_board(&mut self, b : [[i32;4];4]){
+        self.grid = b;
+    }
+    pub fn is_solvable(&self) -> bool {
+        let mut row = 0;
+        let mut inv = 0;
+        for i in 0..DIM*DIM{
+            let a = self.grid[(i/4) as usize][(i%4) as usize];
+            for j in i..DIM*DIM{
+                let b = self.grid[(j/4) as usize][(j%4) as usize];
+                if a == 0 || b == 0{
+                    continue;
+                }
+                if a > b{
+                    inv = 1 - inv;
+                }
+            }
+            if a == 0 {
+                row = i / DIM;
+            }
+        }
+        if (row % 2 + inv) % 2 != 1 {
+            return false;
+        }
+        true
+    }
     pub fn try_move(&mut self, dir: usize) -> bool{
-        if dir > 3 || dir < 0{
+        if dir > 3{
             return false;
         }
         // 0: U (W)
         // 1: L (A)
-        // 2: S (S)
-        // 3: D (D)
+        // 2: D (S)
+        // 3: R (D)
         for i in 0..DIM {
             for j in 0..DIM {
                 let i_us = i as usize;
@@ -103,5 +129,8 @@ impl Board{
             }
             println!();
         }
+    }
+    pub fn get_board(&self) -> [[i32;4];4]{
+        self.grid
     }
 }
